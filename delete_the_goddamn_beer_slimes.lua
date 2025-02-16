@@ -1,6 +1,6 @@
 local SS13 = require("SS13")
-local slime_path = SS13.type("/mob/living/basic/slime")
-local slime_trait_path = SS13.type("/datum/slime_trait/beer_slime")
+local slime_path = "/mob/living/basic/slime"
+local slime_trait_path = "/datum/slime_trait/beer_slime"
 
 -- set to true to actually delete the slimes.
 -- otherwise it'll just print how many slimes it found

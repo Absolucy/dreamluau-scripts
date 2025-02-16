@@ -1,4 +1,4 @@
-you will need to manually copy the `lua` folder of your codebase here, rename it to `SS13`, and rename `SS13/SS13.lua` to `init.lua` - I'm not including that in this repo as I'm pretty sure that's AGPLv3 and I want to avoid issues.
+for autocomplete to work in VS Code, you will need to manually copy the `lua` folder of your codebase here, rename it to `SS13`, and rename `SS13/SS13.lua` to `init.lua` - I'm not including that in this repo as I'm pretty sure that's AGPLv3 and I want to avoid issues.
 
 ## License
 

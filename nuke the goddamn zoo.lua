@@ -1,22 +1,37 @@
+
 local SS13 = require("SS13")
 
 -- set to true to actually delete the mobs.
 -- otherwise it'll just print how many mobs it found
-local actually_delete = true
+local actually_delete = false
 
 -- you probably want this set to true if you're using this bc too much of something is lagging the server
 local high_priority = true
 
--- list of typepaths to target
-local types_to_delete = {
-	"/mob/living/basic/chicken",
-	"/mob/living/basic/chick"
-}
+local function typecacheof(string_types)
+	local types = {}
+	for _, path in pairs(string_types) do
+		if path == nil then
+			continue
+		elseif dm.global_procs._ispath(path) == 1 then
+			table.insert(types, path)
+		else
+			table.insert(types, SS13.type(path))
+		end
+	end
+	return dm.global_procs.typecacheof(types)
+end
 
--- list of area typepaths to target
-local area_whitelist = {
-	"/area/station/service/hydroponics"
-}
+-- typecache of things to delete
+local delete_typecache = typecacheof({
+	"/mob/living/basic/mouse",
+	"/mob/living/carbon/human/species/monkey"
+})
+
+-- typecache of areas to target
+local area_typecache = typecacheof({
+	"/area/station/commons/storage/primary"
+})
 
 local function get_turf(thing)
 	return dm.global_procs._get_step(thing, 0)
@@ -35,18 +50,6 @@ local function get_area(thing)
 	return nil
 end
 
-local function is_one_of_type(thing, type_list)
-	if not dm.is_valid_ref(thing) then
-		return false
-	end
-	for _, typepath in pairs(type_list) do
-		if SS13.istype(thing, typepath) then
-			return true
-		end
-	end
-	return false
-end
-
 local function should_delete(thing)
 	if not SS13.is_valid(thing) then
 		return false
@@ -54,10 +57,10 @@ local function should_delete(thing)
 	if SS13.istype(thing, "/mob") and (dm.is_valid_ref(thing.mind) or thing.ckey ~= nil) then -- don't delete any players!!
 		return false
 	end
-	if not is_one_of_type(thing, types_to_delete) then
+	if not dm.global_procs._is_type_in_typecache(thing, delete_typecache) then
 		return false
 	end
-	if not is_one_of_type(get_area(thing), area_whitelist) then
+	if not dm.global_procs._is_type_in_typecache(get_area(thing), area_typecache) then
 		return false
 	end
 	return true

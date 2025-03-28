@@ -163,7 +163,10 @@ type SdqlWrappers = {
 	-- paths/types
 	_text2path: (string) -> TypePath,
 	_istype: (any, TypePath) -> BooleanLike,
-	_ispath: (any, TypePath) -> BooleanLike,
+	_ispath: (any, TypePath?) -> BooleanLike,
+	_is_type_in_typecache: (ByondObject, ByondList) -> BooleanLike,
+	typecacheof: (ByondList, BooleanLike?, BooleanLike?) -> ByondList,
+	zebra_typecacheof: (ByondList, BooleanLike?, BooleanLike?, BooleanLike?, BooleanLike?) -> ByondList,
 
 	-- misc
 	_hascall: (ByondObject, string) -> BooleanLike,

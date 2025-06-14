@@ -1,8 +1,8 @@
 SS13 = require("SS13")
 
-local limit = 50
+local limit = 1
 local base_areas_to_check = {
-	"/area/shuttle/escape",
+	"/area/station/hallway/primary/central",
 }
 
 local deleted = 0
@@ -14,7 +14,7 @@ for _, base_area in base_areas_to_check do
 		local found = {}
 		for _, thingy in turf.contents do
 			SS13.check_tick()
-			if SS13.istype(thingy, "/obj/item/food/grown") or SS13.istype(thingy, "/obj/item/seeds") then
+			if SS13.istype(thingy, "/obj/item/grown") or SS13.istype(thingy, "/obj/item/seeds") then
 				table.insert(found, thingy)
 			end
 		end

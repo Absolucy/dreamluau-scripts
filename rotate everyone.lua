@@ -23,6 +23,7 @@ for _, player in pairs(player_list) do
 	if SS13.is_valid(player) then
 		local transform = player.transform
 		player.transform = transform:Turn(angle)
+		dm.global_procs.to_chat(player, "<span class='warning'>You feel slightly... <i>tilted?</i></span>")
 		rotated = rotated + 1
 	end
 	SS13.check_tick(true)
